@@ -121,4 +121,5 @@ off-nutrition-extraction/
 - Add config.yaml
 - Include functions to test each part separately
 - Train and develop a specific OCR model for our task. This includes preprocessing (cropping) the raw image with a ML model specifically trained for detecting nutritional table edges.
-- Our current solution requires 2 steps. We could modify the inference script to automatically perform text extraction from raw images (by calling text_processing) and model inference.
+- Enhance the text processing after obtaining the raw OCR text.
+- Our current solution requires 2 steps. We could modify the inference script to automatically perform inference from raw images (by calling text_processing).
