@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Informacién Nutricional
 Tamafio por porcién 3/4 de Taza (30 g)
 Porcién por envase 18
@@ -15,22 +14,4 @@ de 2000 calorias. Sus valores diarios
 pueden ser mayores 0
 menores dependiendo de sus
 necesidades caloricas.
-=======
-Informacién Nutricional
-Tamafio por porcién 3/4 de Taza (30 g)
-Porcién por envase 18
-Cantidad por porcion Cereal Cereal con
-1/2
-taza de leche
-descremada
-Proteina 2 g
-Vitamina A 10% 15%
-Vitamina C 25% 25%
-*Los porcentajes de Valores Diarios
-estan basados en una dieta
-de 2000 calorias. Sus valores diarios
-pueden ser mayores 0
-menores dependiendo de sus
-necesidades caloricas.
->>>>>>> 1d3d6e3f6242de8c4dafc08895e4ee921b19a9d4
 …
