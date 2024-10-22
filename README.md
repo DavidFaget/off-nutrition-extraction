@@ -5,8 +5,8 @@
 This project aims to extract and process nutritional information from images of nutritional tables using Optical Character Recognition (OCR). Then, it employs a multitask learning model that performs entity tagging, single-label classification, and multi-label classification. 
 
 The project is structured into two main phases:
-1. OCR: The input consists of raw images, while the output is the processed text.
-2. Entity Tagging and Classification: The input is the processed text, and the output consists of model predictions.
+**1. OCR:** The input consists of raw images, while the output is the processed text.
+2. **Entity Tagging and Classification:** The input is the processed text, and the output consists of model predictions.
 
 ### Step 1 Overview:
 
