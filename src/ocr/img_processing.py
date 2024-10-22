@@ -65,7 +65,8 @@ class ImagePreprocessor:
         blurred = cv2.GaussianBlur(gray, (5, 5), 0)
         
         # 3. Thresholding (Binary Inverse Thresholding)
-        # We apply binary threshold to get a black and white effect
+        # We apply binary threshold to get a black and white effect 
+        # PROBLEM: this thereshold will depend on the image we have. More complex methods such as Adaptive Theresholding are needed.
         _, thresholded = cv2.threshold(blurred, 150, 255, cv2.THRESH_BINARY_INV)
         
         return thresholded
@@ -79,14 +80,15 @@ class ImagePreprocessor:
             1. Detect the largest rectangular contour (assuming it's the nutritional table).
             2. Crop the image based on that contour.
 
+        IMPORTANT: For a more robust pipeline, we should replace this step by a Machine Learning model trained to detect nutritional tables.
+        This is just a preliminary idea which is not robust.
+
         :param img: Preprocessed image.
         :return: Cropped image focused on the nutritional table.
         """
-        # Convert the image to grayscale
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         
         # Apply Canny edge detection
-        edges = cv2.Canny(gray, 50, 150)
+        edges = cv2.Canny(img, 50, 150)
         
         # Find contours
         contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)

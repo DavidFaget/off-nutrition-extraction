@@ -5,14 +5,16 @@
 This project aims to extract and process nutritional information from images of nutritional tables using Optical Character Recognition (OCR). Then, it employs a multitask learning model that performs entity tagging, single-label classification, and multi-label classification. 
 
 The project is structured into two main phases:
-1- OCR: The input consists of raw images, while the output is the processed text.
-2- Entity Tagging and Classification: The input is the processed text, and the output consists of model predictions.
+1. OCR: The input consists of raw images, while the output is the processed text.
+2. Entity Tagging and Classification: The input is the processed text, and the output consists of model predictions.
 
 ### Step 1 Overview:
 
 The OCR process is divided into three stages. First, we preprocess the raw images to prepare them for OCR. Next, we utilize pre-trained models to identify text regions and extract the text. Finally, we process the extracted text to make it suitable for entity tagging and classification.
 
 For the text extraction, we use a combination of CTPN (connectionist text proposal network) to detect text regions and Tesseract to transcribe the text. The benefit of using CTPN instead of relying solely on Tesseract is that CTPN is designed to detect text regions in complex and disorganized images, such as tables with unclear or misaligned cells (which is our case). While Tesseract works well when the text is already neatly segmented, CTPN precisely identifies the areas containing text, improving segmentation in challenging situations. This allows Tesseract to be applied more effectively only to the relevant regions, reducing errors that could arise from trying to recognize text in irrelevant areas.
+
+![Stage 1 Workflow](https://github.com/DavidFaget/off-nutrition-extraction/blob/main/images/stage1.png)
 
 ### Step 2 Overview:
 
@@ -40,7 +42,7 @@ off-nutrition-extraction/
 │   ├── ocr/                  # Directory for OCR-related scripts
 │   │   ├── img_preprocessing.py   # Preprocess images for OCR
 │   │   ├── ocr.py                 # Perform OCR on processed images
-│   │   └── text_preprocessing.py   # Process OCR text for training. Also run img_preprocessing.py and ocr.py.
+│   │   └── text_preprocessing.py  # Process OCR text for training. Also run img_preprocessing.py and ocr.py.
 │   ├── dataloader.py          # Handle data loading for training and evaluation
 │   ├── data_splitting.py       # Split data into training, validation, and test sets
 │   ├── model.py               # Define the multitask learning model
@@ -49,6 +51,7 @@ off-nutrition-extraction/
 │   └── inference.py           # Perform inference on new data
 │
 ├── models/                   # Directory for trained models
+├── images/                   # Directory for README.md images
 ├── requirements.txt          # Contains the requirements to run the scripts
 └── README.md                 # Project documentation
 
@@ -97,7 +100,7 @@ off-nutrition-extraction/
 
 ### 8. `evaluate.py`
 
-- **Purpose**: This script evaluates the trained model on a validation or test dataset. It computes and returns the evaluation loss.
+- **Purpose**: This script evaluates the trained model on a test dataset. It computes and returns the evaluation loss.
 - **Output**: Loss metrics are printed to the console for performance assessment.
 
 ### 9. `inference.py`
@@ -117,5 +120,5 @@ off-nutrition-extraction/
 
 - Add config.yaml
 - Include functions to test each part separately
-- Train and develop a specific OCR model for our task
+- Train and develop a specific OCR model for our task. This includes preprocessing (cropping) the raw image with a ML model specifically trained for detecting nutritional table edges.
 - Our current solution requires 2 steps. We could modify the inference script to automatically perform text extraction from raw images (by calling text_processing) and model inference.

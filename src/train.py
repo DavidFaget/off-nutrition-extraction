@@ -42,8 +42,10 @@ def train(model, train_loader, optimizer, device, num_epochs=10):
         
         print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {running_loss / len(train_loader)}")
 
+        # Here we should track validation metrics
+
 if __name__ == "__main__":
-    # Hyperparameters
+    # Hyperparameters (in an ideal situation, we would handle them in a config.yaml file)
     batch_size = 16
     learning_rate = 5e-5
     num_epochs = 10
