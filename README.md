@@ -44,7 +44,9 @@ off-nutrition-extraction/
 │
 ├── models/                   # Directory for trained models
 │
-├── src/                  # Directory containing all scripts
+├── notebooks/                # Contains Exploratory Data Analysis
+│
+├── src/                      # Directory containing all scripts
 │   ├── ocr/                  # Directory for OCR-related scripts
 │   │   ├── img_preprocessing.py   # Preprocess images for OCR
 │   │   ├── ocr.py                 # Perform OCR on processed images
