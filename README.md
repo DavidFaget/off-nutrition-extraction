@@ -134,5 +134,7 @@ off-nutrition-extraction/
 ## References
 
 [1] Tian, Zhi & Huang, Weilin & Tong, He & He, Pan & Qiao, Yu. (2016). Detecting Text in Natural Image with Connectionist Text Proposal Network. 9912. 56-72. 10.1007/978-3-319-46484-8_4. 
+
 [2] Joshi, Kartik. (2024). Study of Tesseract OCR. GLS KALP: Journal of Multidisciplinary Studies. 1. 41-50. 10.69974/glskalp.01.02.54. 
+
 [3] Devlin, J., Chang, M., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. North American Chapter of the Association for Computational Linguistics.
