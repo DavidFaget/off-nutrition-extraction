@@ -65,7 +65,7 @@ class MultitaskDataset(Dataset):
         :param text: Input text.
         :return: A list of entity tags.
         """
-        # TODO: Replace with actual entity tagging logic
+        # TODO: Replace with our entity tagging logic
         return [0] * len(text.split())  # Example: Return '0' for each token (no entity tagged)
 
     def _get_single_label(self, text):
@@ -76,7 +76,7 @@ class MultitaskDataset(Dataset):
         :param text: Input text.
         :return: A single-label classification.
         """
-        # TODO: Replace with actual single-label classification logic
+        # TODO: Replace with our single-label classification logic
         return torch.tensor(0)  # Example: Always returns label '0'
 
     def _get_multi_labels(self, text):
@@ -86,7 +86,7 @@ class MultitaskDataset(Dataset):
         :param text: Input text.
         :return: A binary vector representing multiple labels.
         """
-        # TODO: Replace with actual multi-label classification logic
+        # TODO: Replace with our multi-label classification logic
         return self.mlb.transform([['Low Sugar', 'Organic']])[0]  # Example: Two labels
 
     def __getitem__(self, index):

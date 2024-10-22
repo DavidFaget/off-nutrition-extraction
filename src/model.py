@@ -101,7 +101,7 @@ class MultitaskModel(nn.Module):
             criterion_multi_label = nn.BCELoss()  # Binary Cross-Entropy for multi-label classification
             multi_label_loss = criterion_multi_label(predictions['multi_label_logits'], multi_label)
 
-        # Combine the losses (simple sum here, can also use weighted sum)
+        # Combine the losses (simple sum here, but we should optimize this)
         total_loss = entity_loss + single_label_loss + multi_label_loss
 
         return total_loss

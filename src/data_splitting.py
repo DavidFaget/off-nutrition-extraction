@@ -20,7 +20,7 @@ class DataSplitter:
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-    def list_files(self):
+    def list_files(self):                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
         """
         Lists all files in the dataset directory.
         
@@ -30,7 +30,7 @@ class DataSplitter:
 
     def train_test_split(self, test_size=0.2, random_state=42):
         """
-        Splits the dataset into training and testing sets.
+        Splits the dataset into training and testing sets (we cshould also add a validation set).
 
         :param test_size: Proportion of the dataset to include in the test split.
         :param random_state: Seed for shuffling.
@@ -55,7 +55,7 @@ class DataSplitter:
             test_files = [files[i] for i in test_idx]
             fold_dir = os.path.join(self.output_dir, f"fold_{fold+1}")
             self._save_split(train_files, "train", fold_dir)
-            self._save_split(test_files, "test", fold_dir)
+            self._save_split(test_files, "val", fold_dir)
 
     def _save_split(self, files, split_name, fold_dir=None):
         """
