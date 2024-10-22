@@ -4,23 +4,23 @@
 
 This project aims to extract and process nutritional information from images of nutritional tables using Optical Character Recognition (OCR). Then, it employs a multitask learning model that performs entity tagging, single-label classification, and multi-label classification. 
 
-The project is structured into two main phases:
+The project is structured into two main stages:
 **1. OCR:** The input consists of raw images, while the output is the processed text.
 2. **Entity Tagging and Classification:** The input is the processed text, and the output consists of model predictions.
 
 ### Step 1 Overview:
 
-The OCR process is divided into three stages. First, we preprocess the raw images to prepare them for OCR. Next, we utilize pre-trained models to identify text regions and extract the text. Finally, we process the extracted text to make it suitable for entity tagging and classification.
+The OCR process is divided into three stages. First, we preprocess the raw images to prepare them for OCR. Next, our simplified strategy is to utilize pre-trained models to identify text regions and extract the text. Finally, we process the extracted text to make it suitable for entity tagging and classification.
 
-For the text extraction, we use a combination of CTPN (connectionist text proposal network) to detect text regions and Tesseract to transcribe the text. The benefit of using CTPN instead of relying solely on Tesseract is that CTPN is designed to detect text regions in complex and disorganized images, such as tables with unclear or misaligned cells (which is our case). While Tesseract works well when the text is already neatly segmented, CTPN precisely identifies the areas containing text, improving segmentation in challenging situations. This allows Tesseract to be applied more effectively only to the relevant regions, reducing errors that could arise from trying to recognize text in irrelevant areas.
+For the text extraction, we use a combination of CTPN (Connectionist Text Proposal Network) [1] to detect text regions and Tesseract (studied in [2]) to transcribe the text. The benefit of using CTPN instead of relying solely on Tesseract is that CTPN is designed to detect text regions in complex and disorganized images, such as tables with unclear or misaligned cells (which is our case). While Tesseract works well when the text is already neatly segmented, CTPN precisely identifies the areas containing text, improving segmentation in challenging situations. This allows Tesseract to be applied more effectively only to the relevant regions, reducing errors that could arise from trying to recognize text in irrelevant areas.
 
 ![Stage 1 Workflow](https://github.com/DavidFaget/off-nutrition-extraction/blob/main/images/stage1.png)
 
 ### Step 2 Overview:
 
-The input for this second phase is the output from the first phase. We enable the splitting of textual data in various custom ways, which are then processed using a PyTorch dataloader. A multitask model is defined to manage entity tagging, single-label classification, and multi-label classification. Additionally, we provide scripts for training, evaluating, and making predictions with the model.
+The input for this second stage is the output from the first one (the processed text). We enable the splitting of textual data in various custom ways, which are then processed using a PyTorch dataloader. A multitask model is defined to manage entity tagging, single-label classification, and multi-label classification. Additionally, we provide scripts for training, evaluating, and making predictions with the model.
 
-For the multitask model, we employ a BERT backbone and three different heads for each task. While more recent models like GPT-4 have advanced the state of the art, BERT remains the ideal choice for multitask models involving entity tagging and classification (both single and multi-label) due to its efficiency, robustness, and versatility. BERT's bi-directional Transformer architecture captures deep contextual representations, important for understanding entities and discerning relationships in classification tasks. Although adaptations like BioBERT and SciBERT excel in specific domains, they focus primarily on entity tagging, which limits their effectiveness in classification. By using BERT, I can leverage its multi-task learning capabilities, seamlessly integrating entity recognition and classification without switching models. Additionally, BERT's established fine-tuning process benefits from ample resources and pre-trained checkpoints. While newer models like GPT-4 are powerful, they often come with significant computational overhead for tasks that don’t require generative outputs. Thus, BERT strikes the right balance between performance, efficiency, and ease of deployment, making it highly suitable for my multitask learning scenario.
+For the multitask model, we employ a BERT backbone and three different heads for each task. While more recent models like GPT-4 have advanced the state of the art, BERT remains the ideal choice for multitask models involving entity tagging and classification (both single and multi-label) due to its efficiency, robustness, and versatility. BERT's bi-directional Transformer architecture captures deep contextual representations, important for understanding entities and discerning relationships in classification tasks. Although adaptations like BioBERT and SciBERT excel in specific domains, they focus primarily on entity tagging, which limits their effectiveness in classification. By using BERT, we can leverage its multi-task learning capabilities, integrating entity recognition and classification without switching models. Additionally, BERT's established fine-tuning process benefits from ample resources and pre-trained checkpoints. While newer models like GPT-4 are powerful, they often come with significant computational overhead for tasks that don’t require generative outputs. Thus, BERT strikes the right balance between performance, efficiency, and ease of deployment, making it highly suitable for our multitask learning scenario.
 
 
 ## Project Structure
@@ -38,6 +38,12 @@ off-nutrition-extraction/
 │       ├── val/              # Validation dataset
 │       └── test/             # Test dataset
 │
+├── examples/                 # Contains an example showing the image preprocessing result
+│
+├── images/                   # Directory for README.md images
+│
+├── models/                   # Directory for trained models
+│
 ├── src/                  # Directory containing all scripts
 │   ├── ocr/                  # Directory for OCR-related scripts
 │   │   ├── img_preprocessing.py   # Preprocess images for OCR
@@ -50,8 +56,6 @@ off-nutrition-extraction/
 │   ├── evaluate.py            # Evaluate the model's performance
 │   └── inference.py           # Perform inference on new data
 │
-├── models/                   # Directory for trained models
-├── images/                   # Directory for README.md images
 ├── requirements.txt          # Contains the requirements to run the scripts
 └── README.md                 # Project documentation
 
@@ -72,7 +76,7 @@ off-nutrition-extraction/
 ### 3. `text_processing.py`
 
 - **Purpose**: This script processes the raw text obtained from OCR. It cleans and formats the text for training the model, preparing it for entity tagging and classification.
-- **Execution**: It automatically runs `img_preprocessing.py` and `ocr.py` as part of its execution flow (it runs the whole first step of the workflow).
+- **Execution**: It automatically runs `img_preprocessing.py` and `ocr.py` as part of its execution flow (it runs the whole first stage of the workflow).
 - **Output**: Processed text is saved to `data/ocr_processed/`.
 
 ### 4. `dataloader.py`
@@ -110,16 +114,21 @@ off-nutrition-extraction/
 
 ## How to Run the Project
 
-1. **Setup Environment**: Make sure you have the necessary libraries installed. You may use a `requirements.txt` file or a `conda` environment.
-2. **Text Extraction**: Run `python scripts/text_processing.py` to run all the first step (extract and process text from raw images). Note that we could also run img_processing.py and ocr.py independently.
-3. **Train the Model**: Execute `python scripts/train.py` to train the multitask learning model on the processed data.
-4. **Evaluate the Model**: Use `python scripts/evaluate.py` to assess model performance on validation or test data.
+1. **Setup Environment**: Make sure you have the necessary libraries installed, which are listed in `requirements.txt`.
+2. **Text Extraction**: Run `python scripts/text_processing.py` to run all the first step (extract and process text from raw images). Note that you can also run `img_processing.py` and `ocr.py` independently.
+3. **Train the Model**: Execute `python scripts/train.py` to train the multitask learning model.
+4. **Evaluate the Model**: Use `python scripts/evaluate.py` to assess model performance on test data.
 5. **Perform Inference**: Finally, run `python scripts/inference.py` to make predictions on new data (remember to extract and process the text before running inference).
 
 ## Future Work:
 
-- Add config.yaml
+- Add a config.yaml file
 - Include functions to test each part separately
 - Train and develop a specific OCR model for our task. This includes preprocessing (cropping) the raw image with a ML model specifically trained for detecting nutritional table edges.
 - Enhance the text processing after obtaining the raw OCR text.
 - Our current solution requires 2 steps. We could modify the inference script to automatically perform inference from raw images (by calling text_processing).
+
+## References
+
+[1] Tian, Zhi & Huang, Weilin & Tong, He & He, Pan & Qiao, Yu. (2016). Detecting Text in Natural Image with Connectionist Text Proposal Network. 9912. 56-72. 10.1007/978-3-319-46484-8_4. 
+[2] Joshi, Kartik. (2024). Study of Tesseract OCR. GLS KALP: Journal of Multidisciplinary Studies. 1. 41-50. 10.69974/glskalp.01.02.54. 
