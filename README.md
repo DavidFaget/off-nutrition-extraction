@@ -117,10 +117,10 @@ off-nutrition-extraction/
 ## How to Run the Project
 
 1. **Setup Environment**: Make sure you have the necessary libraries installed, which are listed in `requirements.txt`.
-2. **Text Extraction**: Run `python scripts/text_processing.py` to run all the first step (extract and process text from raw images). Note that you can also run `img_processing.py` and `ocr.py` independently.
-3. **Train the Model**: Execute `python scripts/train.py` to train the multitask learning model.
-4. **Evaluate the Model**: Use `python scripts/evaluate.py` to assess model performance on test data.
-5. **Perform Inference**: Finally, run `python scripts/inference.py` to make predictions on new data (remember to extract and process the text before running inference).
+2. **Text Extraction**: Run `python src/text_processing.py` to run all the first step (extract and process text from raw images). Note that you can also run `img_processing.py` and `ocr.py` independently.
+3. **Train the Model**: Execute `python src/train.py` to train the multitask learning model.
+4. **Evaluate the Model**: Use `python src/evaluate.py` to assess model performance on test data.
+5. **Perform Inference**: Finally, run `python src/inference.py` to make predictions on new data (remember to extract and process the text before running inference).
 
 ## Future Work:
 
